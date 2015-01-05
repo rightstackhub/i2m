@@ -5,21 +5,20 @@ import time
 import pymysql as mdb
 import requests
 from hashlib import sha1
-import hmac
 
 def getMktoClient():
-    munchkinid = os.environ.get('MKTO_MUNCHKIN_ID', '383-VLX-233')
-    clientid =  os.environ.get('MKTO_CLIENT_ID', '9b49688c-c0cf-4903-a691-c7fc28ecbd42')
-    clientsecret = os.environ.get('MKTO_CLIENT_SECRET', 'QFTuXjairHTz3capR6V8iZ2OPsdwpc9u')
+    munchkinid = os.environ.get('MKTO_MUNCHKIN_ID')
+    clientid =  os.environ.get('MKTO_CLIENT_ID')
+    clientsecret = os.environ.get('MKTO_CLIENT_SECRET')
     return mktorest.Client(munchkinid, clientid, clientsecret)
 
 class DBHelper():
     def __init__(self):
-        dbhost = os.environ.get('DB_HOST', 'localhost')
-        dbuser = os.environ.get('DB_USERNAME', 'testuser')
-        dbpw = os.environ.get('DB_PASSWORD', 'test123')
-        dbdb = os.environ.get('DB_NAME', 'ssmirror')
-        self.leadTable = os.environ.get('DB_LEAD_TABLE', 'arc_marketo_upload') #arc_marketo_upload
+        dbhost = os.environ.get('DB_HOST')
+        dbuser = os.environ.get('DB_USERNAME')
+        dbpw = os.environ.get('DB_PASSWORD')
+        dbdb = os.environ.get('DB_NAME')
+        self.leadTable = os.environ.get('DB_LEAD_TABLE') 
         try:
             self.con =  mdb.connect(dbhost, dbuser, dbpw, dbdb, autocommit=True)
             self.cur = self.con.cursor(mdb.cursors.DictCursor)
@@ -76,8 +75,8 @@ def mktoAssociateLead(email, cookie, retry=False):
         token = cookie.rsplit(':', 1)[1]
     else:
         token = cookie
-    munchId = os.environ.get('MKTO_MUNCHKIN_ID', '383-VLX-233')
-    munchKey = os.environ.get('MKTO_MUNCHKIN_KEY', 'fortesting')
+    munchId = os.environ.get('MKTO_MUNCHKIN_ID')
+    munchKey = os.environ.get('MKTO_MUNCHKIN_KEY')
     hashed = sha1(munchKey+email).hexdigest()
     timestamp=int(time.time()*1000)
     url = 'http://'+munchId+'.mktoresp.com/webevents/associateLead'

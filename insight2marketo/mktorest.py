@@ -2,7 +2,7 @@
 Marketo REST API Connector
 '''
 __author__='Ben Johnson <ben@rightstack.io> and Steven Simoni <steven@rightstack.io>'
-__version__='0.1'
+__version__='0.2'
 
 import time
 import requests
