@@ -1,0 +1,1 @@
+A integration between a mySQL database and Marketo, allowing for periodic and bulk updates
